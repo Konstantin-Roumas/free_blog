@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :set_comment, only: %i[ show edit reply_on_tree update destroy ]
 
   # GET /comments
   def index
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
                    turbo_stream.append("comments",
-                                       partial: "comments/comment",
+                                       partial: "comments/tree_comments",
                                        locals: {comment: @comment})
           ]
         end
@@ -40,6 +40,25 @@ class CommentsController < ApplicationController
   #    render :new, status: :unprocessable_entity
   #  end
   end
+
+  def show_tree
+    @tree_comments = Comment.where(parent_type: "comment").where(parent_id: params[:id])
+    render turbo_stream: turbo_stream.append("comment_#{params[:id]}",
+                                              partial: "comments/tree_comments",
+                                              collection: @tree_comments,
+                                              as: :comment)
+  end
+
+def reply_on_tree
+  render turbo_stream: turbo_stream.prepend("comment_#{params[:id]}",
+                                           partial: "comments/normal_form",
+                                           locals: {
+                                                     comment: Comment.new,
+                                                     parent_id: @comment.id,
+                                                     parent_type: "comment"
+                                                   }
+                                           )
+end
 
   # PATCH/PUT /comments/1
   def update

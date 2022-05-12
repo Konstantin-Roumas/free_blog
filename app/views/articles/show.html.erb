@@ -8,9 +8,9 @@
 
   <%= button_to "Destroy this article", @article, method: :delete %>
   <h1> Add comment </h1>
-  <%= render partial: "comments/normal_form", locals: {parent_id: @article.id, parent_type: "article"} %>
+    <%= render partial: "comments/normal_form", locals: {comment: Comment.new, parent_id: @article.id, parent_type: "article"} %>
   <h1> Comments </h1>
   <div id="comments">
-  <%= render @comments %>
+    <%= render partial: "comments/tree_comments", collection: @comments, as: :comment %>
   </div>
 </div>

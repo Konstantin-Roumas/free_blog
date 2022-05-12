@@ -1,0 +1,34 @@
+<div id="<%= dom_id comment %>">
+  <p>
+    <strong>Title:</strong>
+    <%= comment.title %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+    <strong>Parent:</strong>
+    <%= comment.parent_id %>
+  </p>
+
+  <p>
+    <strong>Parent type:</strong>
+    <%= comment.parent_type %>
+  </p>
+  <turbo-frame>
+        <%= link_to "Ответить",
+            "/comments/reply_on_tree/#{comment.id}"%>
+  </turbo-frame>
+        <turbo-frame id="reply_<%= comment.id %>"> </turbo-frame>
+  <% if Comment.where(parent_type: "comment").where(parent_id: comment.id).any? %>
+        <turbo-frame>
+            <%= link_to "Развернуть (ответов: #{Comment.where(parent_type: 'comment').where(parent_id: comment.id).count})",
+                "/comments/tree_comments/#{comment.id}"%>
+            <%= turbo_frame_tag comment %>
+        </turbo-frame>
+  <% end %>
+
+</div>
