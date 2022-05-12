@@ -22,12 +22,23 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
-
-    if @comment.save
-      redirect_to @comment, notice: "Comment was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @comment.save
+        format.turbo_stream do
+          render turbo_stream: [
+                   turbo_stream.append("comments",
+                                       partial: "comments/comment",
+                                       locals: {comment: @comment})
+          ]
+        end
+      end
     end
+
+  #  if @comment.save
+  #    redirect_to @comment, notice: "Comment was successfully created."
+  #  else
+  #    render :new, status: :unprocessable_entity
+  #  end
   end
 
   # PATCH/PUT /comments/1
