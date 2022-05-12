@@ -11,7 +11,9 @@
   </head>
 
   <body>
-    <h1 class="flex justify-center">Text </h1>
+    <% if current_user.present? %>
+    <h1 class="flex justify-center">logged in </h1>
+    <% end %>
     <%= yield %>
   </body>
 </html>
