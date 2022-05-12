@@ -11,9 +11,15 @@
   </head>
 
   <body>
-    <% if current_user.present? %>
-    <h1 class="flex justify-center">logged in </h1>
-    <% end %>
+    <div class = "flex text-xl justify-center bg-gray-200 flex-row">
+      <div>My_Blog</div>
+      <% if current_user.present?%>
+      <div><%= link_to "Sign out", destroy_user_session_path, data:{"turbo-method": :"delete" }%></div>
+      <%else%>
+      <div><%= link_to "Sign in", new_user_session_path%></div>
+      <div><%= link_to "Sign up", new_user_registration_path%></div>
+      <%end%>
+    </div>
     <%= yield %>
   </body>
 </html>
