@@ -8,6 +8,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1
   def show
+    @new_comment = Comment.new
+    @new_comment.parent_id = params[:id]
     @comments = Comment.where(parent_id: params[:id]).where(parent_type: "article")
   end
 
