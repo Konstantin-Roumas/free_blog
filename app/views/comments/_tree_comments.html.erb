@@ -19,7 +19,9 @@
     <%= comment.parent_type %>
   </p>
   <turbo-frame>
-        <%= link_to "Ответить",
+        <%= link_to "Delete", comment, method: :delete %>
+  <turbo-frame>
+            <%= link_to "Ответить",
             "/comments/reply_on_tree/#{comment.id}"%>
   </turbo-frame>
         <turbo-frame id="reply_<%= comment.id %>"> </turbo-frame>
@@ -31,4 +33,5 @@
         </turbo-frame>
   <% end %>
 
+        </turbo-frame>
 </div>
