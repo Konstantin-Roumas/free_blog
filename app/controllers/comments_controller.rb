@@ -72,7 +72,8 @@ end
   # DELETE /comments/1
   def destroy
     @comment.destroy
-    redirect_to comments_url, notice: "Comment was successfully destroyed."
+    render turbo_stream: turbo_stream.remove(@comment)
+#    redirect_to comments_url, notice: "Comment was successfully destroyed."
   end
 
   private
