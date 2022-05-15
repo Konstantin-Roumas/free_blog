@@ -5,11 +5,10 @@
   <% @articles.each do |article| %>
   <div class = "m-10 p-2 text-xl bg-indigo-100 border-4 border-indigo-500 rounded-xl flex-col">
     <div class = "font-bold">Title:</div>
-    <div> <%= article.title%></div>
-    <div class = "font-bold">Content:</div>
+    <div class="text-2xl"> <%= article.title%></div>
+    <div class="font-bold">Content:</div>
     <div> <%=article.body[0...100]%>...</div>
-    <div class = "font-bold">Tags:</div>
-    <div> <%= article.tags%></div>
+    <div class="italic"> <%= article.tags%> </div>
     <div class = "font-bold"><%= link_to "Show this article", article %></div>
   </div>
     <%end%>
