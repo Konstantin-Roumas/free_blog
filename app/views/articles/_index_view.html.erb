@@ -3,9 +3,12 @@
     <div class="text-2xl"> <%= article.title%></div>
     <div class="font-bold">Content:</div>
     <div> <%=article.body[0...100]%>...</div>
-    <div class="italic"> <% article.tags.split.each do |tag|%>
-      <%= link_to "#{tag}","/tag_search/#{tag}"%>
-      <%end%>
+    <div class="italic">
+        <span class="font-bold">Tags:
+        <% article.tags.split.each do |tag|%>
+        <%= link_to "#{tag}","/tag_search/#{tag}"%>
+        <%end%>
+        </span>
     </div>
     <div class = "font-bold"><%= link_to "Show this article", article %></div>
   </div>
