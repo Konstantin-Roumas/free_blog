@@ -11,6 +11,20 @@
   </head>
 
   <body class="bg-gray-200">
+    <% if current_user&.admin?%>
+     <div class = "flex text-2xl justify-around bg-red-200 flex-row">
+      <div><%=link_to "My_Blog", root_path%></div>
+      <div class = "flex justify-end text-xl p-2">
+          <% if current_user.present?%>
+          <div class = "pr-2"><%= link_to "Sign out", destroy_user_session_path, data:{"turbo-method": :"delete" }%></div>
+          <div class = "pl-2"><%= link_to "New Article", new_article_path %></div>
+          <%else%>
+          <div class = "pr-2"><%= link_to "Sign in", new_user_session_path%></div>
+          <div class = "pl-2"><%= link_to "Sign up", new_user_registration_path%></div>
+          <%end%>
+      </div>
+    </div>
+     <%else%>
     <div class = "flex text-2xl justify-around bg-indigo-200 flex-row">
       <div><%=link_to "My_Blog", root_path%></div>
       <div class = "flex justify-end text-xl p-2">
@@ -23,6 +37,8 @@
           <%end%>
       </div>
     </div>
+    <%end%>
     <%= yield %>
+
   </body>
 </html>

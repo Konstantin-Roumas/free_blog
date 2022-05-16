@@ -2,15 +2,7 @@
   <div class = "text-2xl">Articles</div>
 </div>
 <div id="articles" class = "flex justify-center flex-wrap  flex-row">
-  <% @articles.each do |article| %>
-  <div class = "m-10 p-2 text-xl bg-indigo-100 border-4 border-indigo-500 rounded-xl flex-col">
-    <div class = "font-bold">Title:</div>
-    <div class="text-2xl"> <%= article.title%></div>
-    <div class="font-bold">Content:</div>
-    <div> <%=article.body[0...100]%>...</div>
-    <div class="italic"> <%= article.tags%> </div>
-    <div class = "font-bold"><%= link_to "Show this article", article %></div>
-  </div>
-    <%end%>
+<div id="tag_search_result">
+  <%= render partial: "articles/index_view", collection: @articles, as: :article%>
 </div>
-
+</div>

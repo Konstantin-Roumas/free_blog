@@ -45,15 +45,21 @@ class ArticlesController < ApplicationController
     @article.destroy
     redirect_to articles_url, notice: "Article was successfully destroyed."
   end
-
+  def tag_search
+    @tag_search_result = Article.search(params[:tag])
+    render turbo_stream: turbo_stream.update("tag_search_result",
+                                             partial: "articles/index_view",
+                                             collection: @tag_search_result,
+                                             as: :article
+                                            )
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :body, :tags)
+      params.require(:article).permit(:title, :body, :tags, :logo)
     end
 end

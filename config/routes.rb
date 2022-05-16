@@ -5,8 +5,5 @@ Rails.application.routes.draw do
   resources :articles
   get "/comments/tree_comments/:id", to: "comments#show_tree"
   get "/comments/reply_on_tree/:id", to: "comments#reply_on_tree"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
- # root "articles#index"
+  get "/tag_search/:tag", to: "articles#tag_search"
 end
